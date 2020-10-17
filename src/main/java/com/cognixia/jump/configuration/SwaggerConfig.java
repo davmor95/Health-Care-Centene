@@ -57,8 +57,8 @@ public class SwaggerConfig {
 	private ApiInfo apiDetails() {
 		
 		return new ApiInfo(
-				"Restaurant Reviews API", 
-				"API for a database with Restaurants, Reviews, Users, and Addresses.", 
+				"Enrollee HealthCare API",
+				"API for en enrollee database for a HealthCare system.",
 				"1.0", 
 				"http://localhost:8080", 
 				new Contact("Project Team", "http://localhost:8080/login", 

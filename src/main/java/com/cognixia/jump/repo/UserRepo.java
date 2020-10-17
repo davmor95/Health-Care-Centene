@@ -2,7 +2,9 @@ package com.cognixia.jump.repo;
 
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repo.custom.UserRepoCustomUpdate;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
