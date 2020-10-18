@@ -18,5 +18,6 @@ import java.util.Optional;
 public interface UserRepo extends MongoRepository<User, Long>, UserRepoCustomUpdate {
     Boolean existsByFirstNameAndLastName(String firstName, String lastName);
     Optional<User> findByFirstNameAndLastName(String firstName, String lastName);
+    Optional<User> findByUserName(String userName);
     void deleteByFirstNameAndLastName(String firstName, String lastName);
 }

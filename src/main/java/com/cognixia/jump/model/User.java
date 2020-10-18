@@ -27,14 +27,16 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private Role userRole;
-    
+    private String userName;
+    private String password;
+
 
     /**
      * The default constructor.
      * @author David Morales
      */
     public User() {
-        this( "N/A","N/A", Role.ROLE_USER);
+        this( "N/A","N/A", Role.ROLE_USER, "N/A", "N/A");
     }
 
     /**
@@ -42,11 +44,16 @@ public class User implements Serializable {
      * @param firstName
      * @param lastName
      * @param userRole
+     * @param userName
+     * @param password
      */
-    public User(String firstName, String lastName, Role userRole) {
+
+    public User(String firstName, String lastName, Role userRole, String userName, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userRole = userRole;
+        this.userName = userName;
+        this.password = password;
     }
 
     /**
@@ -119,5 +126,37 @@ public class User implements Serializable {
         this.userRole = userRole;
     }
 
+    /**
+     * Retrieve username
+     * @return a string
+     */
 
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * update the username
+     * @param userName
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * retrieve the current password
+     * @return
+     */
+
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * update the password
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
