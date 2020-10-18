@@ -68,7 +68,7 @@ public class EnrolleeController {
                     "Author(s): David Morales\n" +
                     "Exceptions(s): ResourceAlreadyExistsExcpetion is thrown when",
             response = ResponseEntity.class)
-    public ResponseEntity<Enrollee> addUser(@RequestBody Enrollee newUser) throws ResourceAlreadyExistsException {
+    public ResponseEntity<Enrollee> addEnrollee(@RequestBody Enrollee newUser) throws ResourceAlreadyExistsException {
         if (service.existsByFirstNameAndLastName(newUser.getFirstName(), newUser.getLastName())) {
             throw new ResourceAlreadyExistsException("This user with name " + newUser.getFirstName() + " " + newUser.getLastName() + " already exists.");
         } else {

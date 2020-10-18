@@ -14,13 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -93,20 +90,85 @@ public class EnrolleeControllerTest {
     }
 
     @Test
-    public void patchDependent() {
+    public void patchDependent() throws Exception {
+        String uri = STARTING_URI + "/patch/modify/enrollee/dependents";
+        List<Dependent> dependentList = Arrays.asList(
+                new Dependent("Willy", "Morales", "03/21/2001")
+        );
+        List<Dependent> dependentList2 = Arrays.asList(
+                new Dependent("Brian", "Morales", "05/09/1995")
+        );
+        Enrollee create = new Enrollee("David", "Morales", true, "01/06/1995", "818-792-0288", dependentList);
+        String firstName = create.getFirstName();
+        String lastName = create.getLastName();
+        Enrollee updated = new Enrollee("David", "Morales", true, "01/06/1995", "818-792-0288", dependentList2);
+        when( repo.findByFirstNameAndLastName(firstName, lastName) ).thenReturn(Optional.of(create));
+        when( repo.patch(firstName, lastName, "dependents", dependentList)).thenReturn(updated);
+
+        mockMvc.perform(patch(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updated)))
+                .andDo(print());
+    }
+
+    @Test
+    public void patchStatus() throws Exception {
+        String uri = STARTING_URI + "/patch/enrollee/status";
+        List<Dependent> dependentList = Arrays.asList(
+                new Dependent("Willy", "Morales", "03/21/2001")
+        );
+        Enrollee create = new Enrollee("David", "Morales", true, "01/06/1995", "818-792-0288", dependentList);
+        String firstName = create.getFirstName();
+        String lastName = create.getLastName();
+        Enrollee updated = new Enrollee("David", "Morales", false, "01/06/1995", "818-792-0288", dependentList);
+        when( repo.findByFirstNameAndLastName(firstName, lastName) ).thenReturn(Optional.of(create));
+        when( repo.patch(firstName, lastName, "activationStatus", false)).thenReturn(updated);
+
+        mockMvc.perform(patch(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updated)))
+                .andDo(print());
 
     }
 
     @Test
-    public void patchStatus() {
+    public void patchPhoneNumber() throws Exception {
+        String uri = STARTING_URI + "/patch/enrollee/phoneNumber";
+        List<Dependent> dependentList = Arrays.asList(
+                new Dependent("Willy", "Morales", "03/21/2001")
+        );
+        Enrollee create = new Enrollee("David", "Morales", true, "01/06/1995", "818-792-0288", dependentList);
+        String firstName = create.getFirstName();
+        String lastName = create.getLastName();
+        Enrollee updated = new Enrollee("David", "Morales", false, "01/06/1995", "818-792-0288", dependentList);
+        when( repo.findByFirstNameAndLastName(firstName, lastName) ).thenReturn(Optional.of(create));
+        when( repo.patch(firstName, lastName, "phoneNumber", "818-811-0288")).thenReturn(updated);
+
+        mockMvc.perform(patch(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updated)))
+                .andDo(print());
     }
 
     @Test
-    public void patchPhoneNumber() {
-    }
+    public void deleteEnrollee() throws Exception {
+        String uri = STARTING_URI + "/delete/enrollee/{firstName}/firstName/{lastName}/lastName";
+        List<Dependent> dependentList = Arrays.asList(
+                new Dependent("Willy", "Morales", "03/21/2001")
+        );
+        Enrollee create = new Enrollee("David", "Morales", true, "01/06/1995", "818-792-0288", dependentList);
+        String firstName = create.getFirstName();
+        String lastName = create.getLastName();
 
-    @Test
-    public void deleteEnrollee() {
+        when( repo.existsByFirstNameAndLastName(firstName, lastName)).thenReturn(true);
+
+        doNothing().when(repo).deleteByFirstNameAndLastName(firstName, lastName);
+
+        mockMvc.perform( delete(uri, firstName, lastName)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content( asJsonString(create) ))
+                .andExpect( status().isOk() );
+
     }
 
     public static String asJsonString(final Object obj) {
