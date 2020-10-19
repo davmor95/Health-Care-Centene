@@ -7,12 +7,12 @@ of dependents the customer covers for.
 The application uses a Spring boot framework which connects to mongodb. Spring Security is enabled therefore one must be a user
 to access endpoints.
 
-##Connect to you own mongodb
+## Connect to you own mongodb
     spring.data.mongodb.host=localhost
     spring.data.mongodb.port=(your port number)
     spring.data.mongodb.database=(name of the database)
    
-#Must create a user before adding an enrollee
+# Must create a user before adding an enrollee
 Create a user with a username and password therefore the user has access to adding themselves as enrollee and
 dependents
 
@@ -20,7 +20,7 @@ dependents
     http://localhost:8080/api/add/user
 To specify the document for mongodb, select the `body` tab, click the option `raw` and set the data as `JSON`
 
-##Example
+## Example
     {
         "firstName": "Brian",
         "lastName": "Morales",
@@ -31,14 +31,14 @@ To specify the document for mongodb, select the `body` tab, click the option `ra
 Must specify `ROLE_ADMIN` to enter data to mongodb.
 
 Once you add the data, select `POST` operation, hit send.
-#Enrollee API
+# Enrollee API
 Before adding the url go to the authorization tag, select `Basic Auth` and under `username` and `password`, add
 the username and password of the user respectively.
 
-##Get all enrollees
+## Get all enrollees
     http://localhost:8080/api/enrollees
 This endpoint retrieves all enrolled
-##Response
+## Response
     [
         {
             "id": 2,
@@ -70,11 +70,11 @@ This endpoint retrieves all enrolled
         }
     ]
 
-##Get dependents from desired enrollee
+## Get dependents from desired enrollee
     http://localhost:8080/api/dependents/{enter firstname}/firstName/{enter lastname}/lastName
-###Example:
+### Example:
     http://localhost:8080/api/dependents/jocy/firstName/mo/lastName
-###Response
+### Response
     [
         {
             "id": null,
@@ -96,14 +96,14 @@ This endpoint retrieves all enrolled
         }
     ]
 
-#Post Operations
+# Post Operations
 Before adding a resource to mongo, must add `username` and `password` just like for the 
 `GET` requests
 
 Then select the `Body` tag and add the format.
-#####Endpoint for adding an enrollee
+##### Endpoint for adding an enrollee
     http://localhost:8080/api/add/enrollee
-#####Body format
+##### Body format
     {
         "firstName": "Dilma",
         "lastName": "Morales",
@@ -128,11 +128,11 @@ Then select the `Body` tag and add the format.
             }
         ]
     }
- #Patch Operations
+ # Patch Operations
  
- ###Adding/deleting or updating a dependent
+ ### Adding/deleting or updating a dependent
         http://localhost:8080/api/patch/modify/enrollee/dependents
- #####Body format
+ ##### Body format
     {
         "firstName": "jocy",
         "lastName": "mo",
@@ -145,7 +145,7 @@ Then select the `Body` tag and add the format.
         ]
     }
  Must specify `firstName` and `lastName` to know which enrollee to grab from the database
- #####Response
+ ##### Response
     {
         "id": 2,
         "firstName": "jocy",
@@ -161,15 +161,15 @@ Then select the `Body` tag and add the format.
             }
         ]
     }
-###Modifying ActivationStatus
+### Modifying ActivationStatus
      http://localhost:8080/api/patch/enrollee/status
-#####Body format
+##### Body format
     {
         "firstName": "jocy",
         "lastName": "mo",
         "activationStatus": true
     }
-#####Response
+##### Response
     {
         "id": 2,
         "firstName": "jocy",
@@ -186,15 +186,15 @@ Then select the `Body` tag and add the format.
             }
         ]
     }
-###Modifying phoneNumber
+### Modifying phoneNumber
      http://localhost:8080/api/patch/enrollee/phoneNumber
-#####Body format
+##### Body format
     {
         "firstName": "jocy",
         "lastName": "mo",
         "phoneNumber": "818-432-6425"
     }
-#####Response
+##### Response
     {
         "id": 2,
         "firstName": "jocy",
@@ -211,12 +211,12 @@ Then select the `Body` tag and add the format.
             }
         ]
     }
-#Deleting an enrollee
+# Deleting an enrollee
 Change the tag to `DELETE`
 
-#####Endpoint
+##### Endpoint
     http://localhost:8080/api/delete/enrollee/{firstName}/firstName/{lastName}/lastName
-#####Example
+##### Example
     http://localhost:8080/api/delete/enrollee/jocy/firstName/mo/lastName
     
 
