@@ -11,10 +11,22 @@ import org.springframework.data.mongodb.core.query.Update;
 
 import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;
 
+/**
+ * Implements the custom repo interface for the patch operation
+ */
+
 public class EnrolleeRepoImpl implements EnrolleeRepoCustomUpdate {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    /**
+     * The patch function properly updates the desired fields in the mongo db
+     * @param firstName
+     * @param lastName
+     * @param field
+     * @param value
+     * @return
+     */
     @Override
     public Enrollee patch(String firstName, String lastName, String field, Object value) {
         Query query = new Query();

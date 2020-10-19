@@ -22,9 +22,9 @@ import java.util.Collections;
  */
 
 /**
- * Configuration for Swagger Documentation for the Restaurant Reviews API.
+ * Configuration for Swagger Documentation for the Enrollee API.
  * @author David Morales
- * @version v1 (08/29/2020)
+ * @version v1 (10/16/2020)
  */
 @Configuration
 @EnableSwagger2
@@ -32,7 +32,7 @@ public class SwaggerConfig {
 	/**
 	 * Selects all APIs that have the class annotation RestController and includes the API's info.
 	 * @author David Morales
-	 * @return Docket - the Restaurant Reviews API's Documentation
+	 * @return Docket - the Enrollee API's Documentation
 	 */
 	@Bean
 	public Docket api() {
@@ -50,9 +50,9 @@ public class SwaggerConfig {
 		 */;
 	}
 	/**
-	 * Creates the Restaurant Reviews API's base info.
+	 * Creates the Enrollee API's base info.
 	 * @author David Morales
-	 * @return AppInfo - the Restaurant Reviews API's base info 
+	 * @return AppInfo - the Enrollee API's base info
 	 */
 	private ApiInfo apiDetails() {
 		

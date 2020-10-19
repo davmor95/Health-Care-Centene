@@ -4,12 +4,8 @@ import com.cognixia.jump.exceptions.ResourceAlreadyExistsException;
 import com.cognixia.jump.exceptions.ResourceNotFoundException;
 import com.cognixia.jump.model.Dependent;
 import com.cognixia.jump.model.Enrollee;
-import com.cognixia.jump.model.User;
 import com.cognixia.jump.repo.EnrolleeRepo;
-import com.cognixia.jump.repo.UserRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -86,7 +82,6 @@ public class EnrolleeController {
                     + "Execption(s): ResourceNotFoundException is thrown when the role does not match an existing user in the database",
             response = ResponseEntity.class)
     public ResponseEntity<Enrollee> patchDependent(@RequestBody Map<String, Object> modifyEnrollee) throws ResourceNotFoundException, JsonProcessingException {
-//        ObjectMapper objectMapper = new ObjectMapper();
         String firstName = (String) modifyEnrollee.get("firstName");
         String lastName = (String) modifyEnrollee.get("lastName");
         List<String> dependents = (ArrayList<String>) modifyEnrollee.get("dependents");

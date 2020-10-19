@@ -6,9 +6,12 @@ import com.cognixia.jump.model.User;
 import com.cognixia.jump.repo.UserRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -23,16 +26,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Configured a series of unit test to evaluate each function under the User
+ * controller class
+ * @author David Morales
+ */
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(UserController.class)
 public class UserControllerTest {
 
     private final String STARTING_URI = "http://localhost:8080/api";
-
+    /**
+     * Mocks the UserRepo therefore the test can simulate as if we are actually
+     * making a connection to the databse
+     */
     @MockBean
     private UserRepo repo;
-
+    /**
+     * Mocks the "PostMan", call all web request as if we were actually using PostMan
+     */
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Test to get all users from the mongodb database
+     * @throws Exception
+     */
 
     @Test
     public void getUsers() throws Exception {
@@ -47,6 +66,11 @@ public class UserControllerTest {
 
     }
 
+    /**
+     * Test if the endpoint will return by a User with the given ID
+     * @throws Exception
+     */
+
     @Test
     public void getUserById() throws Exception {
         String uri = STARTING_URI + "/user/{id}";
@@ -60,6 +84,10 @@ public class UserControllerTest {
 
     }
 
+    /**
+     * Test if the endpoint will add a User to the mock repo
+     * @throws Exception
+     */
     @Test
     public void addUser() throws Exception {
         String uri = STARTING_URI + "/add/user";
@@ -78,6 +106,11 @@ public class UserControllerTest {
 
     }
 
+    /**
+     * Mocks the repo therefore we can test if a the delete operation works on the database
+     * @throws Exception
+     */
+
     @Test
     public void deleteUser() throws Exception {
         String uri = STARTING_URI + "/delete/user/{firstName}/firstName/{lastName}/lastName";
@@ -93,6 +126,11 @@ public class UserControllerTest {
                 .content( asJsonString(user) ))
                 .andExpect( status().isOk() );
     }
+
+    /**
+     * Test if patch request will modify the userRole of the user
+     * @throws Exception
+     */
 
     @Test
     public void patchUserRole() throws Exception {
@@ -112,6 +150,10 @@ public class UserControllerTest {
 
     }
 
+    /**
+     * Test if the patch request will modify the userName
+     * @throws Exception
+     */
     @Test
     public void patchUserName() throws Exception {
         String uri = STARTING_URI + "/patch/user/userName";
@@ -129,6 +171,10 @@ public class UserControllerTest {
                 .andDo(print());
     }
 
+    /**
+     * Test if the patch request will modify the password of the desired user
+     * @throws Exception
+     */
     @Test
     public void patchPassword() throws Exception {
         String uri = STARTING_URI + "/patch/user/password";
@@ -146,6 +192,11 @@ public class UserControllerTest {
                 .andDo(print());
     }
 
+    /**
+     * return the object as if it were a json object
+     * @param obj
+     * @return
+     */
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);

@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Configuration for Security for the Users of Restaurant Reviews API.
- * @author David Morales and Lori White
- * @version v3 (08/29/2020)
+ * @author David Morales
+ * @version v3 (10/16/2020)
  */
 @Configuration
 @EnableWebSecurity

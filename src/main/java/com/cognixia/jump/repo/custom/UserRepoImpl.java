@@ -8,9 +8,21 @@ import org.springframework.data.mongodb.core.query.Update;
 import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;
 import org.springframework.data.mongodb.core.query.Query;
 
+/**
+ * Custom interface to extend the user repo functionality
+ */
 public class UserRepoImpl implements UserRepoCustomUpdate{
     @Autowired
     MongoTemplate mongoTemplate;
+
+    /**
+     * Properly updates the desired field into the mongodb
+     * @param firstName
+     * @param lastName
+     * @param field
+     * @param value
+     * @return
+     */
     @Override
     public User patch(String firstName, String lastName, String field, Object value) {
         Query query = new Query();
