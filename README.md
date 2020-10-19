@@ -16,7 +16,7 @@ to access endpoints.
 Create a user with a username and password therefore the user has access to adding themselves as enrollee and
 dependents
 
-##Head over to postman and paste the following url to add a user
+## Head over to postman and paste the following url to add a user
     http://localhost:8080/api/add/user
 To specify the document for mongodb, select the `body` tab, click the option `raw` and set the data as `JSON`
 
